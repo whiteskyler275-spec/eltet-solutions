@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elite Solutions | Elite IT & Mobile Restoration</title>
+    <!-- Google Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root, [data-theme="dark"] {
+            --bg-dark: #020617;
+            --bg-overlay: rgba(2, 6, 23, 0.7);
+            --accent-cyan: #22d3ee;
+            --accent-purple: #8b5cf6;
+            --status-green: #4ade80;
+            --status-red: #f87171;
+            
+            /* High-Refraction Dark Glass Tokens */
+            --glass-surface: rgba(15, 23, 42, 0.55);
+            --glass-surface-elevated: rgba(30, 41, 59, 0.45);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-highlight: inset 0 1px 1px 0 rgba(255, 255, 255, 0.18), inset 0 -1px 1px 0 rgba(0, 0, 0, 0.3);
+            --glass-blur: blur(28px) saturate(190%);
+            
+            --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+            --radius: 24px;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+
+            /* Liquid Nav Tokens */
+            --nav-bg: rgba(15, 23, 42, 0.65);
+            --nav-border: rgba(255, 255, 255, 0.14);
+            --pill-bg: rgba(255, 255, 255, 0.12);
+            --pill-border: rgba(255, 255, 255, 0.2);
+            --pill-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            --glare-bg: radial-gradient(circle at center, rgba(34, 211, 238, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+
+        [data-theme="light"] {
+            --bg-dark: #f8fafc;
+            --bg-overlay: rgba(248, 250, 252, 0.75);
+            --accent-cyan: #0284c7;
+            --accent-purple: #7c3aed;
+            --status-green: #16a34a;
+            --status-red: #dc2626;
+            
+            /* High-Refraction Light Glass Tokens */
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-surface-elevated: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --glass-highlight: inset 0 1px 2px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 2px 0 rgba(0, 0, 0, 0.04);
+            --glass-blur: blur(28px) saturate(180%);
+            
+            --card-shadow: 0 20px 40px rgba(15, 23, 42, 0.08), 0 0 1px 1px rgba(0, 0, 0, 0.04);
+            --radius: 24px;
+            --text-main: #0f172a;
+            --text-dim: #475569;
+
+            /* Liquid Nav Tokens */
+            --nav-bg: rgba(255, 255, 255, 0.7);
+            --nav-border: rgba(15, 23, 42, 0.08);
+            --pill-bg: #ffffff;
+            --pill-border: rgba(0, 0, 0, 0.06);
+            --pill-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            --glare-bg: radial-gradient(circle at center, rgba(2, 132, 199, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html { 
+            scroll-behavior: smooth; 
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Ambient Glass Backdrop Mesh */
+        .ambient-mesh {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .mesh-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.45;
+            will-change: transform;
+            animation: pulse-mesh 14s ease-in-out infinite alternate;
+        }
+
+        .mesh-1 {
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, var(--accent-cyan), transparent 70%);
+            top: -150px;
+            left: -100px;
+        }
+
+        .mesh-2 {
+            width: 750px;
+            height: 750px;
+            background: radial-gradient(circle, var(--accent-purple), transparent 70%);
+            top: 30%;
+            right: -200px;
+            animation-duration: 18s;
+            animation-delay: -5s;
+        }
+
+        .mesh-3 {
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, #38bdf8, transparent 70%);
+            bottom: -100px;
+            left: 20%;
+            animation-duration: 12s;
+            animation-delay: -2s;
+        }
+
+        @keyframes pulse-mesh {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.12) translate(30px, -40px); }
+            100% { transform: scale(0.92) translate(-20px, 30px); }
+        }
+
+        .shell { 
+            width: min(1200px, 92%); 
+            margin: 0 auto; 
+            padding: 20px 0; 
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glass Surface Utilities */
+        .glass-panel {
+            background: var(--glass-surface);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow), var(--glass-highlight);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border-radius: var(--radius);
+        }
+
+        /* Button Infrastructure */
+        .btn {
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            font-size: 0.92rem;
+            border: 1px solid transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); 
+            color: #ffffff;
+            box-shadow: 0 8px 25px rgba(34, 211, 238, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-primary:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+            opacity: 0.98;
+        }
+
+        /* Header Navigation */
+        .site-header-nav {
+            margin: 20px 0 40px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            gap: 12px;
+            border-radius: 100px;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .brand { 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1rem; 
+            text-decoration: none; 
+            color: var(--text-main); 
+            cursor: pointer; 
+            white-space: nowrap;
+        }
+
+        .brand-icon { 
+            width: 38px; 
+            height: 38px; 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); 
+            border-radius: 12px; 
+            color: #ffffff; 
+            display: grid; 
+            place-items: center; 
+            font-weight: 900; 
+            box-shadow: 0 4px 16px rgba(34, 211, 238, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+        }
+
+        /* Liquid Navigation Container */
+        .liquid-nav {
+            position: relative;
+            background: var(--nav-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--nav-border);
+            box-shadow: var(--glass-highlight), 0 12px 30px rgba(0, 0, 0, 0.25);
+            border-radius: 40px;
+            padding: 4px;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .liquid-glass {
+            position: absolute;
+            width: 90px;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: var(--glare-bg);
+            opacity: 0.7;
+            pointer-events: none;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            filter: blur(12px);
+        }
+
+        .nav-items {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        .active-item-pill {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--pill-bg);
+            border: 1px solid var(--pill-border);
+            border-radius: 30px;
+            box-shadow: var(--pill-shadow), var(--glass-highlight);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            pointer-events: none;
+            backdrop-filter: blur(8px);
+        }
+
+        .nav-btn {
+            background: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 30px;
+            color: var(--text-dim);
+            transition: color 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.82rem;
+            font-weight: 600;
+            z-index: 3;
+        }
+
+        .nav-btn:hover { color: var(--text-main); }
+        .nav-btn.active { color: var(--text-main); }
+
+        .nav-content {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .theme-btn { padding: 8px 12px; }
+        .sun-icon { display: none; }
+        .moon-icon { display: block; }
+        [data-theme="light"] .sun-icon { display: block; }
+        [data-theme="light"] .moon-icon { display: none; }
+
+        .secure-line-link {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 8px 16px;
+            border-radius: 30px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+            box-shadow: var(--glass-highlight);
+            transition: all 0.25s ease;
+            white-space: nowrap;
+        }
+
+        .secure-line-link:hover {
+            background: rgba(34, 211, 238, 0.18);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
+        }
+
+        /* Hero */
+        header { padding: 10px 0 60px; }
+        .hero-grid { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 28px; }
+        
+        .main-card { 
+            padding: 50px 40px; 
+            position: relative; 
+            overflow: hidden; 
+        }
+
+        h1 { 
+            font-size: clamp(2.5rem, 8vw, 4.2rem); 
+            line-height: 1.05; 
+            font-weight: 900; 
+            margin-bottom: 24px; 
+            letter-spacing: -2px; 
+        }
+
+        h1 span { 
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+
+        .status-badge { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 10px; 
+            padding: 8px 18px; 
+            border-radius: 50px; 
+            background: rgba(0, 0, 0, 0.4); 
+            border: 1px solid var(--glass-border); 
+            box-shadow: var(--glass-highlight);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.75rem; 
+            font-weight: 700; 
+            margin-bottom: 24px; 
+            text-transform: uppercase; 
+        }
+
+        .status-badge.online { color: var(--status-green); border-color: rgba(74, 222, 128, 0.4); }
+        .status-badge.offline { color: var(--status-red); border-color: rgba(248, 113, 113, 0.4); }
+
+        .status-badge .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: currentColor;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .status-badge.online .dot { animation: pulse-dot 1.8s infinite; }
+        
+        @keyframes pulse-dot {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+
+        .side-stack { display: flex; flex-direction: column; gap: 24px; }
+        .side-stack .glass-panel { padding: 28px; }
+
+        .hour-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 12px 0; 
+            border-bottom: 1px solid var(--glass-border); 
+            font-size: 0.95rem; 
+        }
+
+        .payment-row {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            cursor: pointer;
+            padding: 12px 14px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--glass-border);
+        }
+
+        .payment-row:hover {
+            background: rgba(34, 211, 238, 0.12);
+            border-color: var(--accent-cyan);
+            transform: translateY(-1px);
+        }
+
+        .payment-row strong {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-main);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Sections */
+        section { padding: 70px 0; border-top: 1px solid var(--glass-border); }
+        h2 { font-size: 2.5rem; margin-bottom: 36px; letter-spacing: -1.5px; font-weight: 800; }
+        .grid-even { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        
+        .step-card { 
+            padding: 32px 28px; 
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .step-card:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow), 0 0 25px rgba(34, 211, 238, 0.2);
+        }
+
+        .step-num { 
+            font-family: 'JetBrains Mono', monospace; 
+            color: var(--accent-cyan); 
+            font-size: 0.85rem; 
+            margin-bottom: 14px; 
+            display: inline-block; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+        }
+
+        .cap-icon { 
+            width: 52px; 
+            height: 52px; 
+            background: rgba(34, 211, 238, 0.1); 
+            border-radius: 16px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+            color: var(--accent-cyan); 
+            border: 1px solid rgba(34, 211, 238, 0.3); 
+            box-shadow: var(--glass-highlight);
+            font-size: 1.5rem; 
+        }
+
+        .location-box {
+            text-align: center;
+            padding: 56px 36px;
+        }
+
+        /* FAQ Accordeon */
+        .faq-item { 
+            border-radius: 18px; 
+            margin-bottom: 16px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            transition: border-color 0.25s ease; 
+        }
+
+        .faq-item:hover { border-color: var(--accent-cyan); }
+        .faq-question { padding: 22px 26px; display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 1.05rem; }
+        .faq-question span { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; font-size: 1.2rem; }
+        .faq-answer { 
+            padding: 0 26px; 
+            color: var(--text-dim); 
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer { 
+            padding: 0 26px 22px;
+            max-height: 250px; 
+            opacity: 1;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(45deg);
+            color: var(--accent-cyan);
+        }
+
+        /* Toast Notification */
+        #paymentToast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 16px 28px;
+            border-radius: 18px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            border-color: var(--accent-cyan);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        #paymentToast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Disclaimer Panel */
+        .disclaimer-card {
+            border: 1px solid rgba(248, 113, 113, 0.35);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 50px auto 0;
+            max-width: 900px;
+            background: rgba(15, 23, 42, 0.45);
+        }
+
+        [data-theme="light"] .disclaimer-card {
+            background: rgba(255, 255, 255, 0.65);
+            border-color: rgba(220, 38, 38, 0.25);
+        }
+
+        .disclaimer-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: var(--status-red);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .disclaimer-text {
+            font-size: 0.84rem;
+            color: var(--text-dim);
+            line-height: 1.65;
+        }
+
+        .legal-footer { 
+            margin-top: 40px; 
+            padding: 50px 0 60px;
+            border-top: 1px solid var(--glass-border); 
+            text-align: center; 
+        }
+
+        .footer-brand { 
+            font-weight: 900; 
+            font-size: 2.2rem; 
+            letter-spacing: 6px; 
+            margin-bottom: 20px; 
+            color: var(--text-main); 
+        }
+
+        .legal-notice { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.75rem; 
+            color: var(--text-dim); 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            line-height: 2.2; 
+            max-width: 850px; 
+            margin: 0 auto; 
+        }
+
+        .official-signature { 
+            margin-top: 36px; 
+            padding-top: 20px; 
+            font-size: 0.95rem; 
+            font-weight: 700; 
+            letter-spacing: 1px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 6px; 
+        }
+
+        @media (max-width: 1024px) {
+            .site-header-nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                border-radius: 24px;
+                padding: 12px;
+            }
+            .brand { width: 100%; justify-content: center; margin-bottom: 4px; }
+        }
+
+        @media (max-width: 900px) { 
+            .hero-grid { grid-template-columns: 1fr; } 
+            h1 { font-size: 3rem; } 
+            .main-card { padding: 36px 20px; }
+            #paymentToast { right: 20px; left: 20px; text-align: center; }
+        }
+
+        @media (max-width: 600px) {
+            .site-header-nav {
+                top: 10px;
+                margin: 10px 0 20px;
+                padding: 8px;
+            }
+            .nav-btn {
+                padding: 6px 10px;
+                font-size: 0.75rem;
+            }
+            .secure-line-link {
+                font-size: 0.7rem;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ambient Mesh Layer Behind Glass Surfaces -->
+    <div class="ambient-mesh" aria-hidden="true">
+        <div class="mesh-orb mesh-1"></div>
+        <div class="mesh-orb mesh-2"></div>
+        <div class="mesh-orb mesh-3"></div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="paymentToast" class="glass-panel">Handle Copied to Clipboard! 📋</div>
+
+    <div class="shell">
+        <nav class="site-header-nav glass-panel">
+            <div class="brand" onclick="scrollToTarget('top')">
+                <div class="brand-icon">ES</div> 
+                <span>Elite Solutions ⚡</span>
+            </div>
+
+            <!-- Liquid Navigation Container -->
+            <div class="liquid-nav">
+                <div class="liquid-glass" id="glare"></div>
+                <div class="active-item-pill" id="activePill"></div>
+
+                <div class="nav-items" id="navItems">
+                    <button class="nav-btn active" data-nav="home" onclick="handleNavClick(this, 'top')">
+                        <div class="nav-content">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                            </svg>
+                            <span>Home</span>
+                        </div>
+                    </button>
+
+                    <button class="nav-btn" data-nav="protocol" onclick="handleNavClick(this, 'protocol')">
+                        <div class="nav-content">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="8" y1="6" x2="21" y2="6"></line>
+                                <line x1="8" y1="12" x2="21" y2="12"></line>
+                                <line x1="8" y1="18" x2="21" y2="18"></line>
+                                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                            </svg>
+                            <span>Protocol</span>
+                        </div>
+                    </button>
+
+                    <button class="nav-btn" data-nav="capabilities" onclick="handleNavClick(this, 'capabilities')">
+                        <div class="nav-content">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                            <span>Capabilities</span>
+                        </div>
+                    </button>
+
+                    <button class="nav-btn" data-nav="faq" onclick="handleNavClick(this, 'faq')">
+                        <div class="nav-content">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                            </svg>
+                            <span>FAQ</span>
+                        </div>
+                    </button>
+
+                    <button class="nav-btn theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
+                        <div class="nav-content">
+                            <svg class="sun-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line>
+                                <line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </svg>
+                            <svg class="moon-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <a href="tel:+15045176246" class="secure-line-link">
+                📞 SECURE LINE: (504) 517-6246
+            </a>
+        </nav>
+
+        <header id="top">
+            <div class="hero-grid">
+                <div class="main-card glass-panel">
+                    <div id="livePill" class="status-badge">
+                        <span class="dot"></span> INITIALIZING...
+                    </div>
+
+                    <h1>IT Diagnostic & <span>Advisory Solutions 💡</span></h1>
+                    <p style="color: var(--text-dim); font-size: 1.15rem; margin-bottom: 36px; max-width: 580px;">
+                        Professional diagnostics, troubleshooting plans, and technical guidance for the Jefferson Parish region. Managed by <strong>Skyler L. White</strong>. 🦾
+                    </p>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="tel:+15045176246" class="btn btn-primary">Call Terminal 📞</a>
+                    </div>
+                </div>
+
+                <div class="side-stack">
+                    <div class="glass-panel">
+                        <h4 style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; color: var(--accent-cyan); margin-bottom: 16px;">🕰️ Operating Window (CST)</h4>
+                        <div class="hour-row"><span>Mon – Thu</span> <strong>4:00 PM – 10:00 PM</strong></div>
+                        <div class="hour-row" style="color: var(--status-red); opacity: 0.85;"><span>Fri – Sun</span> <strong>OFFLINE ❌</strong></div>
+                    </div>
+                    
+                    <div class="glass-panel">
+                        <h4 style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; color: var(--accent-purple); margin-bottom: 14px;">💳 Payment Nodes</h4>
+                        <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 12px;">
+                            <div class="payment-row" onclick="copyTag('$whiteskyler279IT', 'Cash App')">
+                                <span style="color: var(--text-dim);">Cash App</span>
+                                <strong>$whiteskyler279IT <span style="font-size:0.75rem; opacity:0.6;">📋</span></strong>
+                            </div>
+                            <div class="payment-row" onclick="copyTag('@whiteskyler279', 'Venmo')">
+                                <span style="color: var(--text-dim);">Venmo</span>
+                                <strong>@whiteskyler279 <span style="font-size:0.75rem; opacity:0.6;">📋</span></strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="protocol">
+            <h2>Service Protocol 🛠️</h2>
+            <div class="grid-even">
+                <div class="step-card glass-panel">
+                    <span class="step-num">01 // INTAKE</span>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Diagnostic Analysis 🔍</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">
+                        Comprehensive hardware auditing and error code inspection to identify technical faults and root issues.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <span class="step-num">02 // ADVISORY</span>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Action Plan & Guidance ⚡</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">
+                        Clear step-by-step guidance on resolving software glitches, system recovery procedures, and preventive action.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <span class="step-num">03 // REFERRAL</span>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Trusted Repair Network 🤝</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">
+                        If physical hardware replacement is needed, we match you directly with reliable, top-tier repair technicians.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <span class="step-num">04 // FOLLOW-UP</span>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Quality Support 🔬</h3>
+                    <p style="color: var(--text-dim); font-size: 0.95rem;">
+                        Follow-up consultation to ensure your device issue is completely resolved and running smoothly.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="capabilities">
+            <h2>Technical Capabilities 💻</h2>
+            <div class="grid-even">
+                <div class="step-card glass-panel">
+                    <div class="cap-icon">📱</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Device Troubleshooting & Advice</h3>
+                    <p style="color: var(--text-dim); font-size: 0.92rem;">
+                        Diagnostics for mobile, tablet, and computing issues with verified step-by-step guidance.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <div class="cap-icon">💻</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px;">PC & Laptop Diagnostics</h3>
+                    <p style="color: var(--text-dim); font-size: 0.92rem;">
+                        OS re-installation, software troubleshooting, malware remediation, and optimization guidance.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <div class="cap-icon">🌐</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Network & IT Consulting</h3>
+                    <p style="color: var(--text-dim); font-size: 0.92rem;">
+                        Home & small-business router setup assistance, Wi-Fi mesh optimization, and network planning.
+                    </p>
+                </div>
+                <div class="step-card glass-panel">
+                    <div class="cap-icon">🤝</div>
+                    <h3 style="font-size: 1.25rem; margin-bottom: 8px;">Certified Repair Referrals</h3>
+                    <p style="color: var(--text-dim); font-size: 0.92rem;">
+                        Direct connection to reputable hardware replacement specialists when physical repairs are required.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="location">
+            <div class="location-box glass-panel">
+                <span class="step-num">REGIONAL COVERAGE</span>
+                <h2 style="font-size: 2.2rem; margin-bottom: 16px;">Jefferson Parish & Surrounding Regions 📍</h2>
+                <p style="color: var(--text-dim); max-width: 650px; margin: 0 auto 32px; font-size: 1.05rem;">
+                    Providing high-precision hardware diagnostics and IT consultation. Direct technical advice and specialist repair referrals available.
+                </p>
+                <div>
+                    <a href="tel:+15045176246" class="btn btn-primary">Dispatch Inquiry: (504) 517-6246</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently Asked Questions ❓</h2>
+            <div class="faq-item glass-panel" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>Do you physically disassemble and fix phones directly?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    No. Elite Solutions operates as a diagnostic, troubleshooting, and advisory service. We analyze the root cause of your device issue, provide actionable solutions, and if physical parts/repairs are necessary, we refer you to trusted, qualified repair specialists.
+                </div>
+            </div>
+
+            <div class="faq-item glass-panel" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>How do I submit my device for diagnostic service?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Contact the terminal directly via call or SMS at (504) 517-6246 during operating hours (Mon–Thu 4PM–10PM CST).
+                </div>
+            </div>
+
+            <div class="faq-item glass-panel" onclick="toggleFaq(this)">
+                <div class="faq-question">
+                    <span>What payment methods are accepted?</span>
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We accept Cash App ($whiteskyler279IT) and Venmo (@whiteskyler279). Tap on any payment node tag in the header stack to copy the handle directly to your clipboard.
+                </div>
+            </div>
+        </section>
+
+        <!-- Official Service Disclaimer Panel -->
+        <div class="disclaimer-card glass-panel">
+            <div class="disclaimer-title">
+                ⚠️ NOTICE & SERVICE BOUNDARY DISCLAIMER
+            </div>
+            <div class="disclaimer-text">
+                <strong>Elite Solutions</strong> and <strong>Skyler L. White</strong> provide technical diagnostic assessments, software troubleshooting, and consultative advice. <strong>We do not perform direct physical phone hardware repairs, screen replacements, or physical device teardowns.</strong> Our core purpose is to solve your technical issue through precise diagnostics, actionable resolution steps, and direct referrals to reputable, qualified repair professionals whenever physical hardware intervention is required.
+            </div>
+        </div>
+
+        <footer class="legal-footer">
+            <div class="footer-brand">ELITE SOLUTIONS</div>
+            <div class="legal-notice">
+                Official IT Diagnostic & Advisory Terminal • Jefferson Parish Region<br>
+                All Rights Reserved • Technical Operations Managed by Skyler L. White
+            </div>
+            <div class="official-signature">
+                <span>⚡ Precision IT & Mobile Diagnostics</span>
+                <span style="font-size:0.8rem; color: var(--text-dim); font-weight:400;">DIRECT TERMINAL LINE: (504) 517-6246</span>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function updateLiveStatus() {
+            const livePill = document.getElementById('livePill');
+            const options = { timeZone: 'America/Chicago', hour12: false, weekday: 'short', hour: '2-digit', minute: '2-digit' };
+            const formatter = new Intl.DateTimeFormat([], options);
+            const parts = formatter.formatToParts(new Date());
+            
+            let day = '', hour = 0;
+            parts.forEach(p => {
+                if (p.type === 'weekday') day = p.value;
+                if (p.type === 'hour') hour = parseInt(p.value, 10);
+            });
+
+            const isMonToThu = ['Mon', 'Tue', 'Wed', 'Thu'].includes(day);
+            const isOpenTime = hour >= 16 && hour < 22;
+
+            if (isMonToThu && isOpenTime) {
+                livePill.className = 'status-badge online';
+                livePill.innerHTML = '<span class="dot"></span> OPERATIONAL // ONLINE ⚡';
+            } else {
+                livePill.className = 'status-badge offline';
+                livePill.innerHTML = '<span class="dot"></span> SYSTEM OFFLINE ❌';
+            }
+        }
+
+        /* Pill and Glare Tracking */
+        function positionNavIndicators(targetBtn) {
+            const pill = document.getElementById('activePill');
+            const glare = document.getElementById('glare');
+            const container = document.querySelector('.liquid-nav');
+            if (!targetBtn || !pill || !container) return;
+
+            const btnRect = targetBtn.getBoundingClientRect();
+            const containerRect = container.getBoundingClientRect();
+
+            const leftOffset = btnRect.left - containerRect.left;
+            const width = btnRect.width;
+
+            pill.style.transform = `translateX(${leftOffset}px)`;
+            pill.style.width = `${width}px`;
+
+            if (glare) {
+                glare.style.transform = `translateX(${leftOffset + (width / 2) - 45}px)`;
+            }
+        }
+
+        function handleNavClick(btn, targetId) {
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            positionNavIndicators(btn);
+            scrollToTarget(targetId);
+        }
+
+        function copyTag(text, label) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast(`${label} Tag (${text}) copied! 📋`);
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast(`${label} Tag (${text}) copied! 📋`);
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('paymentToast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2800);
+        }
+
+        function scrollToTarget(id) {
+            if (id === 'top') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const el = document.getElementById(id);
+                if (el) {
+                    const offset = 100;
+                    const bodyRect = document.body.getBoundingClientRect().top;
+                    const elementRect = el.getBoundingClientRect().top;
+                    const elementPosition = elementRect - bodyRect;
+                    const offsetPosition = elementPosition - offset;
+
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            }
+        }
+
+        function toggleFaq(element) {
+            const isActive = element.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(item => item.classList.remove('active'));
+            if (!isActive) {
+                element.classList.add('active');
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            const activeBtn = document.querySelector('.nav-btn.active');
+            setTimeout(() => positionNavIndicators(activeBtn), 50);
+        }
+
+        window.addEventListener('load', () => {
+            updateLiveStatus();
+            setInterval(updateLiveStatus, 60000);
+            const activeBtn = document.querySelector('.nav-btn.active');
+            positionNavIndicators(activeBtn);
+        });
+
+        window.addEventListener('resize', () => {
+            const activeBtn = document.querySelector('.nav-btn.active');
+            positionNavIndicators(activeBtn);
+        });
+    </script>
+</body>
+</html>
